@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <title>Analysis</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container text-center">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-sm">
+                        
+                            <h2>Add a student</h2>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Name</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Marks</label>
+                                <input type="number" class="form-control" id="marks">
+                            </div>
+                            <button onclick="addData()" class="btn btn-primary">Add</button>
+                        
+                    </div>
+                    <!--
+                        <div class="col-sm">
+                        <h2>Remove a student</h2>
+                        <br>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option>Default select</option>
+                                <option>Default select</option>
+                                <option>Default select</option>
+                                <option>Default select</option>
+                                <option>Default select</option>
+                            </select>
+                        </div>
+                        <button onclick="addGradesPieChartData()" class="btn btn-primary">Submit</button>
+                    </div>
+                    -->
+                    
+                </div>
+                <br>
+                <button onclick="visualize()" class="btn btn-success">Visualize Data</button>
+            </div>
+        </div>
+        
+        <script>
+            var nos = 0;
+            var data = {
+                "A+":0,
+                "A-":0,
+                "B+":0,
+                "B-":0,
+                "C":0,
+                "D":0,
+                "E":0,
+                "F":0
+            };
+            var data2 = {
+                "96-100":0,
+                "91-95":0,
+                "86-90":0,
+                "81-85":0,
+                "76-80":0,
+                "71-75":0,
+                "66-70":0,
+                "61-65":0,
+                "56-60":0,
+                "51-55":0,
+                "<=50": 0
+            };
+            
+            function addData(){
+                var marks = document.getElementById('marks').value;
+                var name = document.getElementById('name').value;
+                if(marks != null && name != ''){
+                    nos += 1;
+                    if(marks>90){
+                        data["A+"]+=1;
+                        if(marks>95){
+                            data2['96-100']+=1;
+                        }else{
+                            data2['91-95']+=1;
+                        }
+                    }
+                    else if(marks>80){
+                        data["A-"]+=1;
+                        if(marks>85){
+                            data2['86-90']+=1;
+                        }else{
+                            data2['81-85']+=1;
+                        }
+                    }
+                    else if(marks>70){
+                        data["B+"]+=1;
+                        if(marks>75){
+                            data2['76-80']+=1;
+                        }else{
+                            data2['71-75']+=1;
+                        }
+                    }
+                    else if(marks>60){
+                        data["B-"]+=1;
+                        if(marks>65){
+                            data2['66-70']+=1;
+                        }else{
+                            data2['61-65']+=1;
+                        }
+                    }
+                    else if(marks>50){
+                        data["C"]+=1;
+                        if(marks>55){
+                            data2['56-60']+=1;
+                        }else{
+                            data2['51-55']+=1;
+                        }
+                    }
+                    else if(marks>40){
+                        data["D"]+=1;
+                        data2['<=50']+=1;
+                    }
+                    else if(marks>30){
+                        data["E"]+=1;
+                        data2['<=50']+=1;
+                    }
+                    else if(marks>20){
+                        data["F"]+=1;
+                        data2['<=50']+=1;
+                    }
+                    document.getElementById('name').value = '';
+                    document.getElementById('marks').value = null;
+                    console.log(data);
+                }else{
+                    alert("Please enter all the fields");
+                }
+                
+            }
+            function visualize(){
+                // Put the object into storage
+                localStorage.setItem('nos', nos);
+                localStorage.setItem('data', JSON.stringify(data));
+                localStorage.setItem('data2', JSON.stringify(data2));
+                window.location.href = "visualize.html"
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>

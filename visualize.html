@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function() {
+var nos = localStorage.getItem('nos');
+var b = localStorage.getItem('data');
+b = JSON.parse(b);
+console.log(b);
+var b1 = [];
+for(const x in b){
+    if(b[x]!=0){
+		var d = b[x] / nos * 100;
+		d = d.toFixed(2);
+        b1.push({y:d, label:x});
+    }
+}
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Grades Pie Chart"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: b1
+	}]
+});
+chart.render();
+
+
+var b = localStorage.getItem('data2');
+b = JSON.parse(b);
+console.log(b);
+var b2 = [];
+for(const x in b){
+    if(b[x]!=0){
+        b2.push({y:b[x], label:x});
+    }
+}
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	exportEnabled: true,
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	title:{
+		text: "Grade Bar Chart"
+	},
+	data: [{
+		type: "column", //change type to bar, line, area, pie, etc
+		//indexLabel: "{y}", //Shows y value on all Data Points
+		indexLabelFontColor: "#5A5757",
+      	indexLabelFontSize: 16,
+		indexLabelPlacement: "outside",
+		dataPoints: b2
+	}]
+});
+chart2.render();
+
+
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<br><br>
+<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
